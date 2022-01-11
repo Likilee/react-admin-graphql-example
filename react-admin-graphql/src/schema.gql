@@ -1,0 +1,160 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Code {
+  group: String!
+  id: String!
+  label_korean: String
+  label_english: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Message {
+  created_at: DateTime!
+  updated_at: DateTime!
+  id: Int!
+  user: User!
+  userId: Int!
+  chatChannelId: Int!
+  textMessage: String!
+}
+
+"""Chatting Channel Data"""
+type ChatChannel {
+  created_at: DateTime!
+  updated_at: DateTime!
+  id: Int!
+  name: String!
+  password: String
+  type: Code!
+  typeId: String!
+  chatChannelUsers: [ChatChannelUser]!
+  messages: [Message]!
+}
+
+type ChatChannelUser {
+  created_at: DateTime!
+  updated_at: DateTime!
+  id: Int!
+  userId: Int!
+  chatChannelId: Int!
+  roleId: String!
+  role: Code!
+}
+
+"""Relation data"""
+type Relation {
+  created_at: DateTime!
+  updated_at: DateTime!
+  user_first_id: Int!
+  user_second_id: Int!
+  type: Code!
+  typeId: String!
+}
+
+"""User data"""
+type User {
+  created_at: DateTime!
+  updated_at: DateTime!
+  id: Int!
+  name: String!
+  email: String
+  profile_image: String
+  profile_image_thumb: String
+  profile_image_medium: String
+  description: String
+  authority: Code!
+  authorityId: String!
+  chatChannelUsers: [ChatChannelUser!]!
+  messages: [Message!]!
+  relations(typeId: String!): [Relation]!
+}
+
+type Query {
+  getChatChannelUsers: [ChatChannelUser]!
+  getChatChannelUsersByChannelId(channelId: Int!): [ChatChannelUser!]!
+  getMe: User!
+  getUsers: [User]!
+  getUserById(user_id: Int!): User!
+  getUsersByIds(userIds: [Int!]!): [User!]!
+  getUsersByName(user_name: String!): [User!]!
+  getChatChannels: [ChatChannel]!
+  getChannelById(channelId: Int!): ChatChannel!
+  getParticipatingChannel(userId: Int!): [ChatChannel]!
+  getNotParticipatingChannel(userId: Int!): [ChatChannel!]!
+  getCodes: [Code]!
+  getCodeByCode(code: String!): Code!
+  getRelations: [Relation!]!
+  getRelationsByUserIdTreatAsFirst(typeId: String, userId: Float!): [Relation!]!
+  getRelation(user_first_id: Int!, user_second_id: Int!, typeId: Int): Relation!
+}
+
+type Mutation {
+  createChatChannelUser(createChatChannelUserInput: CreateChatChannelUserInput!): ChatChannelUser!
+  deleteChatChannelUser(deleteChatChannelUserInput: DeleteChatChannelUserInput!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!, user_id: Int!): User!
+  createChannel(createChannelInput: CreateChannelInput!, userId: Int!): ChatChannel!
+  updateChannel(updateChannelInput: CreateChannelInput!, channelId: Int!): ChatChannel!
+  createCode(createCodeInput: CreateCodeInput!): Code!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  createRelation(createRelationInput: CreateRelationInput!): Relation!
+  updateRelation(updateRelationInput: CreateRelationInput!): Relation!
+}
+
+input CreateChatChannelUserInput {
+  chatChannelId: Int!
+  userId: Int!
+  roleId: String!
+}
+
+input DeleteChatChannelUserInput {
+  chatChannelId: Int!
+  userId: Int!
+}
+
+input CreateUserInput {
+  id: Float!
+  name: String!
+  email: String
+  profile_image: String
+  authorityId: String = "UA1"
+  description: String
+}
+
+input UpdateUserInput {
+  profile_image_binary: String
+  description: String
+}
+
+input CreateChannelInput {
+  name: String!
+  typeId: String!
+  password: String
+}
+
+input CreateCodeInput {
+  group: String!
+  id: String!
+  label_korean: String
+  label_english: String
+}
+
+input CreateMessageInput {
+  chatChannelId: Float!
+  userId: Float!
+  textMessage: String!
+}
+
+input CreateRelationInput {
+  user_first_id: Int!
+  user_second_id: Int!
+  typeId: String!
+}
