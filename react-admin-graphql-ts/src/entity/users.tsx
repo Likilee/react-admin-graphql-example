@@ -12,9 +12,10 @@ import {
   ReferenceField,
   ChipField,
   EditButton,
+  ListProps,
 } from 'react-admin';
 
-export const UserList = props => (
+export const UserList = (props: ListProps) => (
   <List {...props} pagination={false}>
     <Datagrid rowClick="edit">
       <TextField source="name" />
@@ -29,7 +30,7 @@ export const UserList = props => (
   </List>
 );
 
-export const UserEdit = props => (
+export const UserEdit = (props: ListProps) => (
   <Edit {...props}>
     <SimpleForm>
       <RadioButtonGroupInput

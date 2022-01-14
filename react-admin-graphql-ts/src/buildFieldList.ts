@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const buildFieldList = resourceName => {
+const buildFieldList = (resourceName: string): string[] | null => {
   switch (resourceName) {
     case 'User':
       return userFields;
@@ -14,8 +14,10 @@ const buildFieldList = resourceName => {
       return messageFields;
     case 'Relation':
       return relationFields;
-    default:
-      console.log('Error');
+    default: {
+      console.error('Error');
+      return null;
+    }
   }
 };
 

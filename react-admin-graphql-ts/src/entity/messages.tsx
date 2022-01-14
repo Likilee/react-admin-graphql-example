@@ -6,9 +6,10 @@ import {
   DateField,
   NumberField,
   ReferenceField,
+  ListProps,
 } from 'react-admin';
 
-export const MessageList = props => (
+export const MessageList = (props: ListProps) => (
   <List {...props} pagination={false}>
     <Datagrid rowClick="edit">
       <ReferenceField label="User" source="userId" reference="User">
